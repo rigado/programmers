@@ -1,0 +1,39 @@
+//Clear App Protect and Erase All
+SWDSelect
+ 
+SWDWriteDP 1 0x50000000
+ 
+SWDWriteDP 2 0x01000000
+ 
+SWDWriteAP 1 0x00000001
+ 
+sleep 500
+ 
+SWDReadAP 3
+ 
+SWDReadAP 3
+
+//connect USB 0
+usb 0
+
+//set SWD
+si 1
+
+//set Speed
+speed 4000
+
+//set device
+device NRF52832_XXAA
+
+//reset
+r
+
+//erase all flash
+w4 4001e504 2
+w4 4001e50c 1
+sleep 200
+
+//commit erase with reset
+r
+
+exit
