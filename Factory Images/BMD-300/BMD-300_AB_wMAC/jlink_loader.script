@@ -1,0 +1,60 @@
+//Clear App Protect and Erase All
+SWDSelect
+ 
+SWDWriteDP 1 0x50000000
+ 
+SWDWriteDP 2 0x01000000
+ 
+SWDWriteAP 1 0x00000001
+ 
+sleep 500
+ 
+SWDReadAP 3
+ 
+SWDReadAP 3
+
+//connect USB 0
+usb 0
+
+//set SWD
+si 1
+
+//set Speed
+speed 1000
+
+//set device
+device NRF52832_XXAA
+
+//reset
+r
+
+// enable the flash for writing
+w4 4001e504 1
+
+//write bootloader and softdevice
+loadbin binaries\s132_nrf52_2.0.0_softdevice.bin 0x0
+loadbin binaries\bmdware_rel_nrf52_s132_3_1_1.bin 0x1c000
+loadbin binaries\rigdfu2_nrf52_s132_rel_3_2_1.bin 0x75000
+loadbin binaries\settings_s132_2.0.0_bmdware_3_1_1.bin 0x7e000
+loadbin mac_addr.bin 0x10001080
+loadbin binaries\rigdfu2_uicr.bin 0x10001014
+
+sleep 200
+
+//commit writes with reset
+r
+
+//verify
+verifybin binaries\s132_nrf52_2.0.0_softdevice.bin 0x0
+verifybin binaries\bmdware_rel_nrf52_s132_3_1_1.bin 0x1c000
+verifybin binaries\rigdfu2_nrf52_s132_rel_3_2_1.bin 0x75000
+verifybin binaries\settings_s132_2.0.0_bmdware_3_1_1.bin 0x7e000
+verifybin mac_addr.bin 0x10001080
+verifybin binaries\rigdfu2_uicr.bin 0x10001014
+
+// enable flash writes then enable readback protection
+w4 4001e504 1
+w4 10001208 0
+sleep 200
+
+exit

@@ -35,8 +35,10 @@ w4 4001e504 1
 loadbin binaries\s132_nrf52_2.0.0_softdevice.bin 0x0
 loadbin binaries\bmdware_rel_nrf52_s132_3_1_0.bin 0x1c000
 loadbin binaries\rigdfu2_nrf52_s132_rel_3_2_0.bin 0x75000
+loadbin binaries\settings_s132_2.0.0_bmdware_3_1_0.bin 0x7e000
 loadbin mac_addr.bin 0x10001080
 loadbin binaries\rigdfu2_uicr.bin 0x10001014
+
 
 sleep 200
 
@@ -47,6 +49,7 @@ r
 verifybin binaries\s132_nrf52_2.0.0_softdevice.bin 0x0
 verifybin binaries\bmdware_rel_nrf52_s132_3_1_0.bin 0x1c000
 verifybin binaries\rigdfu2_nrf52_s132_rel_3_2_0.bin 0x75000
+verifybin binaries\settings_s132_2.0.0_bmdware_3_1_0.bin 0x7e000
 verifybin mac_addr.bin 0x10001080
 verifybin binaries\rigdfu2_uicr.bin 0x10001014
 
