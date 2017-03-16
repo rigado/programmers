@@ -1,17 +1,16 @@
 //Clear App Protect and Erase All
-SWDSelect
- 
-SWDWriteDP 1 0x50000000
- 
-SWDWriteDP 2 0x01000000
- 
-SWDWriteAP 1 0x00000001
- 
-sleep 500
- 
-SWDReadAP 3
- 
-SWDReadAP 3
+SWDSelect //Selects the SWD Interface
+SWDWriteDP 1 0x50000000 //Enables power
+SWDWriteDP 2 0x01000000 //Selects the 0x01XXXXXX Access Port and 0xXXXX00XX Register bank in the access port for future AP R/W's
+SWDWriteAP 1 0x00000001 //CTRL-AP Bank 0, register offset 1 (ERASEALL 0x004): Erase all command
+sleep 1000 
+SWDReadAP 2 //CTRL-AP Bank 0, register offset 2 (ERASEALL 0x008): Erase all command status
+SWDReadAP 2 //Second read returns the value
+SWDWriteAP 0 0x00000001 
+SWDWriteAP 0 0x00000000 
+SWDWriteAP 1 0x00000000 
+SWDReadAP 3 //CTRL-AP Bank 0, register offset 3 (APPROTECTSTATUS 0x00C): Access port protection status
+SWDReadAP 3 //Second read returns the value: 0: enabled 1: not enabled
 
 //connect USB 0
 usb 0
