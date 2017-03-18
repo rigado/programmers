@@ -33,4 +33,4 @@ Firmware codes are assigned by product family; i.e. BMD-200 and BMD-300 codes do
 * AA: Nordic S132 SoftDevice v2.0.0, Rigado RigDFU v3.2.0, and BMDware v3.1.0
 * AB: Nordic S132 SoftDevice v2.0.0, Rigado RigDFU v3.2.1, and BMDware v3.1.1
 * AC: Nordic S132 SoftDevice v2.0.0, Rigado RigDFU v3.2.2, and BMDware v3.1.1 (not readback protected, not used in factory production)
-* AD: Nordic S132 SoftDevice v3.1.0, Rigado RigDFU v3.3.1, and BMDware v3.2.0 (not readback protected)
+* AD: Nordic S132 SoftDevice v3.1.0, Rigado RigDFU v3.3.1, and BMDware v3.2.1 (not readback protected)

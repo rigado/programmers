@@ -32,7 +32,7 @@ w4 4001e504 1
 
 //write bootloader and softdevice
 loadbin binaries\s132_nrf52_3.1.0_softdevice.bin 0x0
-loadbin binaries\bmdware_rel_nrf52_s132_3_2_0.bin 0x1f000
+loadbin binaries\bmdware_rel_nrf52_s132_3_2_1.bin 0x1f000
 loadbin binaries\rigdfu2_nrf52_s132_sdk12_rel_3.3.1.46.bin 0x75000
 loadbin binaries\settings_s132_3_1_0_rigdfu_3_3_1.bin 0x7e000
 loadbin mac_addr.bin 0x10001080
@@ -45,7 +45,7 @@ r
 
 //verify
 verifybin binaries\s132_nrf52_3.1.0_softdevice.bin 0x0
-verifybin binaries\bmdware_rel_nrf52_s132_3_2_0.bin 0x1f000
+verifybin binaries\bmdware_rel_nrf52_s132_3_2_1.bin 0x1f000
 verifybin binaries\rigdfu2_nrf52_s132_sdk12_rel_3.3.1.46.bin 0x75000
 verifybin binaries\settings_s132_3_1_0_rigdfu_3_3_1.bin 0x7e000
 verifybin mac_addr.bin 0x10001080
