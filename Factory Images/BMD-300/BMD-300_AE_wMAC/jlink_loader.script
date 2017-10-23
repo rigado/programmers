@@ -1,0 +1,64 @@
+//Clear App Protect and Erase All
+SWDSelect //Selects the SWD Interface
+SWDWriteDP 1 0x50000000 //Enables power
+SWDWriteDP 2 0x01000000 //Selects the 0x01XXXXXX Access Port and 0xXXXX00XX Register bank in the access port for future AP R/W's
+SWDWriteAP 1 0x00000001 //CTRL-AP Bank 0, register offset 1 (ERASEALL 0x004): Erase all command
+sleep 1000 
+SWDReadAP 2 //CTRL-AP Bank 0, register offset 2 (ERASEALL 0x008): Erase all command status
+SWDReadAP 2 //Second read returns the value
+SWDWriteAP 0 0x00000001 
+SWDWriteAP 0 0x00000000 
+SWDWriteAP 1 0x00000000 
+SWDReadAP 3 //CTRL-AP Bank 0, register offset 3 (APPROTECTSTATUS 0x00C): Access port protection status
+SWDReadAP 3 //Second read returns the value: 0: enabled 1: not enabled
+
+//connect USB 0
+usb 0
+
+//set SWD
+si 1
+
+//set Speed
+speed 1000
+
+//set device
+device NRF52832_XXAA
+
+//reset
+r
+
+// enable the flash for writing
+w4 4001e504 1
+
+//write bootloader and softdevice
+loadbin binaries\s132_nrf52_3.1.0_softdevice.bin 0x0
+loadbin binaries\bmdware_rel_nrf52_s132_3_2_1.bin 0x1f000
+loadbin binaries\rigdfu2_nrf52_s132_sdk12_rel_3_4_0.bin 0x75000
+loadbin binaries\settings_s132_3_1_0_rigdfu_3_3_1.bin 0x7e000
+loadbin mac_addr.bin 0x10001080
+loadbin binaries\rigdfu2_uicr.bin 0x10001014
+
+sleep 200
+
+//commit writes with reset
+r
+
+//verify
+verifybin binaries\s132_nrf52_3.1.0_softdevice.bin 0x0
+verifybin binaries\bmdware_rel_nrf52_s132_3_2_1.bin 0x1f000
+verifybin binaries\rigdfu2_nrf52_s132_sdk12_rel_3_4_0.bin 0x75000
+verifybin binaries\settings_s132_3_1_0_rigdfu_3_3_1.bin 0x7e000
+verifybin mac_addr.bin 0x10001080
+verifybin binaries\rigdfu2_uicr.bin 0x10001014
+
+// enable flash writes then enable readback protection 
+// Readback protection no longer required. Module is now readback protected
+// automatically when an encryption key is added via the bootloader.
+//w4 4001e504 1
+//w4 10001208 0
+
+sleep 200
+
+r
+g
+exit
